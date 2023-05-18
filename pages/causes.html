@@ -1,0 +1,186 @@
+<!-- 归因分析地图-->
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CauseMap</title>
+    <link rel="icon" href="../img/map_pin.ico">
+    <!-- CSS -->
+    <link rel="stylesheet" href="../css/bootstrap.css" />
+    <!-- JS -->
+    <script src="../js/jquery-1.11.3.js"></script>
+    <script src="../js/echarts.js"></script>
+    <script src="../lib/maps/js/china.js"></script>
+</head>
+
+<body style="height:93vh">
+    <div class="container">
+        <form>
+            <div style="text-align:center; margin-top:3%;">
+                <label for="date">Date:</label>
+                <input type="date" id="date" name="date" value="2013-01-01" min="2013-01-01" max="2018-12-31">
+            </div>
+        </form>
+    </div>
+
+    <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+    <div id="main" style="height:90%; width:90%; left:5%; right:5%"></div>
+    <script type="text/javascript">
+
+        // 在日期选择变化时触发的函数
+        document.getElementById('date').addEventListener('change', function() {
+            var selectedDate = this.value;
+            transformData(selectedDate);
+        });
+
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('main'));
+
+        // 指定图表的配置项和数据
+        var name_title = "归因分析地图"
+        var mapName = 'china'
+        var data = [
+            { "name": "上海", "date": "2013-01-01", "type": "偏燃煤型", "value": 5 },
+            { "name": "云南", "date": "2013-01-01", "type": "其他型", "value": 0 },
+            { "name": "内蒙古", "date": "2013-01-01", "type": "其他型", "value": 0 },
+            { "name": "北京", "date": "2013-01-01", "type": "其他型", "value": 0 },
+            { "name": "台湾", "date": "2013-01-01", "type": "其他型", "value": 0 },
+            { "name": "吉林", "date": "2013-01-01", "type": "偏燃煤型", "value": 5 },
+            { "name": "四川", "date": "2013-01-01", "type": "偏烟花型", "value": 6 },
+            { "name": "天津", "date": "2013-01-01", "type": "偏燃煤型", "value": 5 },
+            { "name": "宁夏", "date": "2013-01-01", "type": "偏燃煤型", "value": 5 },
+            { "name": "安徽", "date": "2013-01-01", "type": "其他型", "value": 0 },
+            { "name": "山东", "date": "2013-01-01", "type": "偏机动车型", "value": 4 },
+            { "name": "山西", "date": "2013-01-01", "type": "其他型", "value": 0 },
+            { "name": "广东", "date": "2013-01-01", "type": "其他型", "value": 0 },
+            { "name": "广西", "date": "2013-01-01", "type": "其他型", "value": 0 },
+            { "name": "新疆", "date": "2013-01-01", "type": "偏二次型", "value": 2 },
+            { "name": "江苏", "date": "2013-01-01", "type": "其他型", "value": 0 },
+            { "name": "江西", "date": "2013-01-01", "type": "其他型", "value": 0 },
+            { "name": "河北", "date": "2013-01-01", "type": "标准型", "value": 1 },
+            { "name": "河南", "date": "2013-01-01", "type": "标准型", "value": 1 },
+            { "name": "浙江", "date": "2013-01-01", "type": "其他型", "value": 0 },
+            { "name": "海南", "date": "2013-01-01", "type": "其他型", "value": 0 },
+            { "name": "湖北", "date": "2013-01-01", "type": "其他型", "value": 0 },
+            { "name": "湖南", "date": "2013-01-01", "type": "其他型", "value": 0 },
+            { "name": "甘肃", "date": "2013-01-01", "type": "其他型", "value": 0 },
+            { "name": "福建", "date": "2013-01-01", "type": "其他型", "value": 0 },
+            { "name": "西藏", "date": "2013-01-01", "type": "标准型", "value": 1 },
+            { "name": "贵州", "date": "2013-01-01", "type": "其他型", "value": 0 },
+            { "name": "辽宁", "date": "2013-01-01", "type": "其他型", "value": 0 },
+            { "name": "重庆", "date": "2013-01-01", "type": "标准型", "value": 1 },
+            { "name": "陕西", "date": "2013-01-01", "type": "标准型", "value": 1 },
+            { "name": "青海", "date": "2013-01-01", "type": "其他型", "value": 0 },
+            { "name": "香港", "date": "2013-01-01", "type": "其他型", "value": 0 },
+            { "name": "黑龙江", "date": "2013-01-01", "type": "其他型", "value": 0 }
+        ];
+        // console.log(data)
+
+        var option = {
+            title: {  //标题
+                show: true,
+                text: name_title,
+                x: 'center',
+                top: '10%',
+                textStyle: {
+                    fontSize: 24
+                },
+            },
+            tooltip: {  //提示框
+                borderColor: '#666666',
+                trigger: 'item',
+                formatter: function (params) {
+                    // console.log(params)
+                    var toolTiphtml = ''
+                    toolTiphtml = params.data.name + ': ' + params.data.type
+                    return toolTiphtml;
+                }
+            },
+            toolbox: {  //工具栏
+                feature: {
+                    saveAsImage: {}
+                }
+            },
+            visualMap: {  //视觉映射组件
+                show: true,
+                left: 'left',
+                top: 'bottom',
+                seriesIndex: [0],  //指定对哪个系列的数据进行视觉映射
+                type: 'piecewise',  //分段型
+                pieces: [
+                    { min: 0, max: 0, label: '其他型', color: 'rgb(131,175,155)' },
+                    { min: 1, max: 1, label: '标准型', color: 'rgb(200,200,169)' },
+                    { min: 2, max: 2, label: '偏二次型', color: 'rgb(106,147,176)' },
+                    { min: 3, max: 3, label: '偏沙尘型', color: 'rgb(203,141,115)' },
+                    { min: 4, max: 4, label: '偏机动车型', color: 'rgb(230,230,202)' },
+                    { min: 5, max: 5, label: '偏燃煤型', color: 'rgb(252,186,183)' },
+                    { min: 6, max: 6, label: '偏烟花型', color: 'rgb(249,205,173)' },
+                    { min: 7, max: 7, label: '偏钢铁型', color: 'rgb(158,160,161)' },
+                ],
+                textStyle: {
+                    color: '#000000'
+                }
+            },
+            geo: {  //地理坐标系组件
+                show: true,
+                map: mapName,
+                label: {
+                    normal: {
+                        show: true,
+                        fontSize: 12,
+                    },
+                    emphasis: {
+                        show: false,
+                    }
+                },
+                roam: false,
+                itemStyle: {
+                    normal: {
+                        areaColor: '#FFFFFF',  //地图背景色
+                        borderColor: '#666666',  //边框颜色
+                    },
+                    emphasis: {
+                        areaColor: 'rgba(191,191,191,0.5)',  //鼠标移上去的颜色
+                    }
+                }
+            },
+            series: [
+                {
+                    type: 'map',
+                    map: mapName,
+                    geoIndex: 0,
+                    animation: false,
+                    data: data
+                },
+            ]
+        };
+
+        // 使用刚指定的配置项和数据显示图表
+        myChart.setOption(option);
+
+         // 加载数据并更新地图
+         function transformData(date) {
+            fetch('../data/causes/CauseMap.json')
+                .then(response => response.json())
+                .then(data => {
+                    var filteredData = data.filter(item => item.date === date);
+                    updateMap(filteredData);
+                })
+                .catch(error => console.log(error));
+        }
+
+        // 更新地图数据
+        function updateMap(data) {
+            option.series[0].data = data;
+            myChart.setOption(option);
+        }
+
+        // 初始加载地图
+        transformData(document.getElementById('date').value);
+
+    </script>
+</body>
+
+</html>

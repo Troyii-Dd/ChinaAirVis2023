@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- 雷达图和柱状图功能已合并到min_pic.html，在项目中没有使用到本页面 -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RaddarChart</title>
+    <script src="../js/d3.min.js"></script>
+    <script src="../js/d3-v6-tip.js"></script>
+    <link rel="stylesheet" href="../css/d3-tip.min.css" />
+</head>
+
+<body>
+    <select name="myselect" id="myselect" onchange="GetVal(this)" title="select">
+        <option value="RadarChart">RadarChart</option>
+        <option value="BarChart">BarChart</option>
+        <option value="ScatterChart">ScatterChart</option>
+    </select>
+
+    <div id="radarChart" class="container"></div>
+    <div id="barchart"></div>
+
+    <script src="../js/min_chart.js"></script>
+    <script>
+        var pdata = {
+            "AQI": 240.110001,
+            "CO(毫克每立方米)": 2.860000,
+            "SO2(微克每立方米)": 131.149994,
+            "Major pollutants": "PM2.5",
+            "NO2(微克每立方米)": 114.610001,
+            "O3(微克每立方米)": 19.209999,
+            "PM2.5(微克每立方米)": 190.110001,
+            "PM10(微克每立方米)": 306.320007
+        };
+        var init_chartname = document.getElementById("myselect").value;
+        if (init_chartname === 'BarChart') {
+            min_barchart(pdata);
+        } else if (init_chartname === 'RadarChart') {
+            min_radarchart(pdata);
+        } else if (init_chartname === 'ScatterChart') {
+            window.location.replace("./scatterchart.html")
+        }
+        var pollution = "PM2.5(微克每立方米)";
+        window.addEventListener("storage", event => {
+            if (event.key === 'id') {
+                pdata = {
+                    "AQI": window.localStorage.AQI,
+                    "CO(毫克每立方米)": window.localStorage.CO,
+                    "SO2(微克每立方米)": window.localStorage.SO2,
+                    "Major pollutants": window.localStorage.MP,
+                    "NO2(微克每立方米)": window.localStorage.NO2,
+                    "O3(微克每立方米)": window.localStorage.O3,
+                    "PM2.5(微克每立方米)": window.localStorage.PM2,
+                    "PM10(微克每立方米)": window.localStorage.PM10
+                }
+                var chartname = document.getElementById("myselect").value;
+                console.log(chartname)
+                if (chartname === 'BarChart') {
+                    min_barchart(pdata);
+                } else if (chartname === 'RadarChart') {
+                    min_radarchart(pdata);
+                } else if (chartname === 'ScatterChart') {
+                    window.location.replace("./scatterchart.html")
+                }
+            } else if (event.key === 'ymd') {
+                var ppst = window.localStorage.pst;
+                var mymd = event.newValue;
+                var chartname = document.getElementById("myselect").value;
+                console.log(chartname)
+                if (chartname === 'BarChart') {
+                    data_min_chart(ppst, mymd, "bar");
+                } else if (chartname === 'RadarChart') {
+                    data_min_chart(ppst, mymd, "rar");
+                } else if (chartname === 'ScatterChart') {
+                    window.location.replace("./scatterchart.html")
+                }
+            } else if (event.key === 'pollution') {
+                pollution = event.newValue;
+                console.log(pollution);
+                var chartname = document.getElementById("myselect").value;
+                console.log(chartname)
+                if (chartname === 'BarChart') {
+                    min_barchart(pdata, pollution);
+                } else if (chartname === 'RadarChart') {
+                    min_radarchart(pdata, pollution);
+                } else if (chartname === 'ScatterChart') {
+                    window.location.replace("./scatterchart.html")
+                }
+            }
+        })
+        function GetVal(obj) {
+            var index = obj.selectedIndex;
+            var txt = obj.options[index].value;
+            if (txt === 'RadarChart') {
+                min_radarchart(pdata);
+            } else if (txt === 'BarChart') {
+                min_barchart(pdata)
+            } else if (txt === 'ScatterChart') {
+                window.location.replace("./scatterchart.html")
+            }
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,60 @@
+body {
+    /* IE */
+    -webkit-transform: scale(1, 1);
+    /* Safari and Chrome */
+    -ms-transform: scale(1, 1);
+    transform: scale(1, 1);
+    /*设置左上角为缩放原点*/
+    transform-origin: left top;
+    background-color: Transparent;
+    /* background: url('') no-repeat center fixed; */
+}
+
+.view {
+    overflow: hidden;
+}
+
+#mainmap {
+    width: 54%;
+    height: 665px;
+    position: relative;
+    left: 22%;
+    z-index: 1;
+    border: none;
+}
+
+#redar {
+    width: 24%;
+    height: 250px;
+    position: absolute;
+    top: 3%;
+    left: 1%;
+    border: none;
+}
+
+#prov {
+    width: 47%;
+    height: 335px;
+    position: absolute;
+    top: 48%;
+    left: 1%;
+    border: none;
+}
+
+#bar {
+    width: 30%;
+    height: 300px;
+    position: absolute;
+    top: 3%;
+    left: 70%;
+    border: none;
+}
+
+#scatter {
+    width: 30%;
+    height: 330px;
+    position: absolute;
+    top: 48%;
+    left: 67.5%;
+    border: none;
+}

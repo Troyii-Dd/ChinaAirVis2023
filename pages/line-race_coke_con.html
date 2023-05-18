@@ -1,0 +1,143 @@
+<!-- 焦炭消费量 -->
+<!DOCTYPE html>
+<html style="height: 100%">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>CokeConsumption</title>
+    <link rel="stylesheet" href="../css/d3-tip.min.css" />
+    <link rel="stylesheet" href="../css/bootstrap.css" />
+    <link rel="icon" href="../img/energy.ico">
+</head>
+
+<body style="height:93vh">
+
+    <div style="text-align:center; margin-top:3%;">
+        <div class="btn-group btn-group" role="group" aria-label="Small button group">
+            <button onclick="jump1()" type="button" class="btn btn-outline-dark">煤炭消费量</button>
+            <button onclick="jump2_1()" type="button" class="btn btn-outline-dark">汽油生产量</button>
+            <button onclick="jump2_2()" type="button" class="btn btn-outline-dark">汽油消费量</button>
+            <button onclick="jump3_1()" type="button" class="btn btn-outline-dark">焦炭生产量</button>
+            <button onclick="jump3_2()" type="button" class="btn btn-dark">焦炭消费量</button>
+        </div>
+    </div>
+
+    <!-- 为 ECharts 准备一个具备大小的 Dom -->
+    <div id="container" style="height: 90%"></div>
+
+    <script src="../js/jquery-2.1.1.min.js"></script>
+    <script src="../js/echarts.js"></script>
+    <script src="../js/jumpFunc.js"></script>
+
+    <script type="text/javascript">
+        var dom = document.getElementById("container");
+        var myChart = echarts.init(dom);
+        var app = {};
+        var option;
+        $.get(
+            '../data/causes/causes.json',
+            function (_rawData) {
+                run(_rawData);
+            }
+        );
+        function run(_rawData) {
+            const areas = [
+                '河北省',
+                '山西省',
+                '内蒙古自治区',
+                '辽宁省',
+                '江苏省',
+                '山东省',
+                '河南省',
+            ];
+            const datasetWithFilters = [];
+            const seriesList = [];
+            echarts.util.each(areas, function (area) {
+                var datasetId = 'dataset_' + area;
+                datasetWithFilters.push({
+                    id: datasetId,
+                    fromDatasetId: 'dataset_raw',
+                    transform: {
+                        type: 'filter',
+                        config: {
+                            and: [
+                                { dimension: 'year', gte: 2013 },
+                                { dimension: 'prov', '=': area }
+                            ]
+                        }
+                    }
+                });
+                seriesList.push({
+                    type: 'line',
+                    datasetId: datasetId,
+                    showSymbol: false,
+                    name: area,
+                    endLabel: {
+                        show: true,
+                        formatter: function (params) {
+                            return params.value[0] + ': ' + params.value[4] + "万吨";
+                        }
+                    },
+                    labelLayout: {
+                        moveOverlap: 'shiftY'
+                    },
+                    emphasis: {
+                        focus: 'series'
+                    },
+                    encode: {
+                        x: 'year',
+                        y: 'coke_con',
+                        tooltip: {
+                            label: ['prov', 'coke_con'],
+                            itemName: 'year'
+                        }
+                    }
+                });
+            });
+            option = {
+                animationDuration: 1700,
+                dataset: [
+                    {
+                        id: 'dataset_raw',
+                        source: _rawData
+                    },
+                    ...datasetWithFilters
+                ],
+                title: {
+                    show: false,
+                    text: '焦炭消费量',
+                },
+                tooltip: {
+                    order: 'valueDesc',
+                    trigger: 'axis'
+                },
+                xAxis: {
+                    type: 'category',
+                    nameLocation: 'middle',
+                    color: "#f3f3f3"
+                },
+                yAxis: {
+                    name: '焦炭消费量（单位：万吨）',
+                    position: 'top',
+                    nameTextStyle: {
+                        color: '#333',     // 坐标轴名称的颜色
+                        fontSize: '15',    // 文字字体大小
+                        align: 'left',     // 文字水平对齐方式
+                    }
+                },
+                grid: {
+                    left: "15%",
+                    right: "15%"
+                },
+                series: seriesList
+            };
+            myChart.setOption(option);
+        }
+        if (option && typeof option === 'object') {
+            myChart.setOption(option);
+        }
+    </script>
+</body>
+
+</html>

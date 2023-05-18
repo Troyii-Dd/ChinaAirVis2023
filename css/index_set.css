@@ -1,0 +1,46 @@
+.cover {
+    height: 111vh;
+    background: url('../img/background.png') no-repeat center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+#chart{
+    height: 35vh;
+    width: 30%;
+    transform:scale(0.7,0.7);
+    position: relative;
+    right: 20vh;
+    bottom: 10px;
+}
+
+#word{
+    position: relative;
+    top: 100px;
+    left: 10vh;
+    text-align: center;
+}
+
+.index_in{
+	display:inline-block;
+    margin: 170px 0px 0px 0px;
+	padding:7px 20px;
+	border:1px solid #FFFFFF;
+	font-size:4.5;
+	line-height:30px ;
+	color: #FFFFFF;
+	text-decoration: none;
+}
+.index_in:hover{
+	color: black;
+	background: rgba(255, 255, 255, 0.9);
+    text-decoration:none;
+}
+
+#year{
+    position: relative;
+    top: 100px;
+    text-align: center;
+}

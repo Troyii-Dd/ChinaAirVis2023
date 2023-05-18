@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HeatMap</title>
+  <!-- css -->
+  <link rel="stylesheet" href="../css/bootstrap.css" />
+  <!-- js -->
+  <script src="../js/d3.js"></script>
+  <script src="../js/jumpFunc.js"></script>
+</head>
+
+<body style="background-color:transparent">
+  <div class="container">
+    <form>
+      <div style="text-align:center">
+        <label>
+          Date:
+          <input type="date" id="date" name="date" value="2013-01-01" min="2013-01-01" max="2018-12-31">
+        </label>
+      </div>
+    </form>
+
+    <div style="text-align:center">
+      <div class="btn-group btn-group-sm" role="group" aria-label="Small button group">
+        <button onclick="heatmap()" type="button" class="btn btn-dark">AQI热力地图</button>
+        <button onclick="windmap()" type="button" class="btn btn-outline-dark">风场地图</button>
+        <button onclick="heatmap_to_cluster()" type="button" class="btn btn-outline-dark">模式聚类图</button>
+      </div>
+    </div>
+
+    <script src="../js/index1.js"></script>
+  </div>
+  <script type="text/javascript" src="../js/jquery-1.11.3.js"></script>
+  <script type="text/javascript" src="../js/bootstrap.bundle.js"></script>
+</body>
+
+</html>

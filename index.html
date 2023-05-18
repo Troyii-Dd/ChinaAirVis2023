@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="Alex W">
+  <meta name="description" content="ChinaAirVis2013-2018, FinalProject2023">
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/bootstrap.css">
+  <link rel="stylesheet" href="css/index_set.css">
+  <!-- JS -->
+  <script data-require="d3@4.0.0" data-semver="4.0.0" src="js/d3.v4.9.0.js"></script>
+  <title>Index</title>
+  <link rel="icon" href="./img/globe.ico">
+</head>
+
+<body>
+  <script>document.getElementsByTagName('body')[0].style.zoom = 0.9</script>
+  <div>
+    <div class="cover"> <!-- bg -->
+      <!-- navbar -->
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">
+          <img src="img/globe.png" height="30" class="d-inline-block align-top" alt="">
+          ChinaAirVis
+        </a>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav">
+            <li class="nav-item active">
+              <a class="nav-link" href="pages/mainpage.html">可视分析</a>
+            </li>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" href="pages/predict.html">污染预测</a>
+            </li>
+            <li class="nav-item dropdown active">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+                归因分析
+              </a>
+              <div class="dropdown-menu">
+                <a class="dropdown-item" href="pages/causes.html">Cause Map</a>
+                <a class="dropdown-item" href="pages/line-race_coal.html">Line graphs</a>
+              </div>
+            </li>
+            <li class="nav-item dropdown active">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+                AQI排行
+              </a>
+              <div class="dropdown-menu">
+                <a class="dropdown-item" href="pages/prov-monthly/prov_monthly.html">Monthly</a>
+                <a class="dropdown-item" href="pages/prov-daily/prov_daily.html">Daily</a>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </nav>
+      <!-- navbar end -->
+
+      <div class="container">
+        <div class="row">
+          <div class="col" id="chart">
+            <script src="js/chart.js"></script>
+          </div>
+          <div class="col" id="word">
+            <div>
+              <p>
+                <font color="white" size="5">China Air Vis</font>
+              </p>
+              <h1>
+                <font color="white" size="8">全国大气污染可视<br>分析系统</font>
+              </h1>
+              <p>
+                <font color="white" size="5"># 我们呼吸的空气</font>
+              </p>
+            </div>
+            <a class="index_in" href="./pages/mainpage.html">进入系统</a>
+            <div class="btn-group-sm" id="year" role="group" aria-label="Basic example">
+              <button onclick="update(first)" type="button" class="btn btn-outline-light">2013</button>
+              <button onclick="update(second)" type="button" class="btn btn-outline-light">2014</button>
+              <button onclick="update(third)" type="button" class="btn btn-outline-light">2015</button>
+              <button onclick="update(fourth)" type="button" class="btn btn-outline-light">2016</button>
+              <button onclick="update(fifth)" type="button" class="btn btn-outline-light">2017</button>
+              <button onclick="update(sixth)" type="button" class="btn btn-outline-light">2018</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <script type="text/javascript" src="js/jquery-1.11.3.js"></script>
+      <script type="text/javascript" src="js/bootstrap.bundle.js"></script>
+</body>
+
+</html>

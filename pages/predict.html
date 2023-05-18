@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Predict</title>
+<link rel="stylesheet" href="../css/bootstrap.css" />
+<link rel="icon" href="../img/line_graph.ico">
+<script src="../js/predict.js"></script>
+
+<body style="height:93vh">
+
+  <div style="text-align:center; margin-top:3%;">
+    <div class="btn-group btn-group" role="group" aria-label="Small button group">
+      <button type="button" class="btn btn-outline-dark">长沙市</button>
+      <button type="button" class="btn btn-outline-dark">成都市</button>
+      <button type="button" class="btn btn-outline-dark">哈尔滨</button>
+      <button type="button" class="btn btn-outline-dark">杭州市</button>
+      <button type="button" class="btn btn-outline-dark">济南市</button>
+      <button type="button" class="btn btn-outline-dark">乌鲁木齐</button>
+      <button type="button" class="btn btn-outline-dark">郑州市</button>
+    </div>
+  </div>
+
+  <!-- 为 ECharts 准备一个具备大小的 Dom -->
+  <div id="main" style="height: 90%"></div>
+
+  <script src="../js/jquery-2.1.1.min.js"></script>
+  <script src="../js/echarts.js"></script>
+  <script src="../js/d3.min.js"></script>
+
+  <script>
+    var btn = document.getElementsByTagName("button");
+    var pp = "长沙市";
+    document.body.onclick = function (event) {  //点击事件
+      pp = event.target.innerText;  //获取点击的内容
+      predict(pp);  //调用函数
+    }
+    predict(pp);
+  </script>
+</body>
+</html>
