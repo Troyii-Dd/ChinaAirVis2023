@@ -55,7 +55,7 @@ var path = svg.append("path")  //添加螺旋线
   .attr("d", spiral)
   .attr("transform", "translate(510,500)")
   .style("fill", "none")  //填充颜色
-  .style("stroke", "steelblue")  //线条颜色
+  .style("stroke", "#990000")  //线条颜色
 
 var spiralLength = path.node().getTotalLength(),  //获取螺旋线的长度
   N = 365,  //设置螺旋线上的点的数量,
